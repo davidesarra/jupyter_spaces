@@ -1,0 +1,11 @@
+# distribution
+dist
+build
+
+# python
+__pycache__
+*.egg-info
+
+# testing
+.pytest_cache
+.tox
