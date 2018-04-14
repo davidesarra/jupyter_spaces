@@ -26,7 +26,7 @@ with open('README.md', 'r') as f:
     LONG_DESCRIPTION = f.read()
 
 REQUIREMENTS = [
-    'ipython>=6.2.1',
+    'ipython>=5.0.0',
 ]
 
 if __name__ == "__main__":
