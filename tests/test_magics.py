@@ -1,8 +1,6 @@
 from IPython.utils.io import capture_output
 import pytest
 
-from tests.fixtures import ip, global_ip
-
 
 def test_space_can_access_user_namespace_references(ip):
     ip.run_cell(raw_cell='reference = 100')
@@ -39,7 +37,7 @@ def test_space_cannot_remove_user_namespace_references(ip):
 def test_space_can_remove_user_namespace_references_using_global(ip):
     ip.run_cell(raw_cell='reference = 100')
     ip.run_cell_magic(magic_name='space', line='tomato',
-                        cell='global reference; del reference')
+                      cell='global reference; del reference')
     assert 'reference' not in ip.user_global_ns
 
 
