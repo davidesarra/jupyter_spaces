@@ -5,7 +5,7 @@
 [![Supported Python Versions](https://img.shields.io/pypi/pyversions/jupyter_spaces.svg)](https://pypi.org/project/jupyter_spaces/)
 
 Jupyter Spaces is an IPython extension for creating parallel namespaces
-availabe within the user namespace. It is designed to be used via IPython
+available within the user namespace. It is designed to be used via IPython
 magics in Jupyter notebooks.
 
 ## Installation
