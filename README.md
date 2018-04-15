@@ -1,6 +1,7 @@
-[![Build Status](https://travis-ci.org/davidesarra/jupyter_spaces.svg?branch=master)](https://travis-ci.org/davidesarra/jupyter_spaces)
-
 # Jupyter Spaces
+
+[![Build Status](https://travis-ci.org/davidesarra/jupyter_spaces.svg?branch=master)](https://travis-ci.org/davidesarra/jupyter_spaces)
+[![codecov](https://codecov.io/gh/davidesarra/jupyter_spaces/branch/master/graph/badge.svg)](https://codecov.io/gh/davidesarra/jupyter_spaces)
 
 Jupyter Spaces is an IPython extension for creating parallel namespaces
 availabe within the user namespace. It is designed to be used via IPython
