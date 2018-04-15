@@ -67,7 +67,7 @@ class Space:
         self._outer_space = outer_space
 
     def __repr__(self):
-        return "Space(name='{name}' namespace={namespace})".format(
+        return "Space(name='{name}', namespace={namespace})".format(
             name=self.name, namespace=self.namespace)
 
     @property

@@ -87,6 +87,11 @@ class TestSpace:
         space.execute(source='assert reference == 101')
         assert space.namespace['reference'] == reference_value
 
+    def test_space_representation(self):
+        space = Space(name='tomato', outer_space=locals())
+        space.namespace['a'] = 1
+        assert str(space) == 'Space(name=\'tomato\', namespace={\'a\': 1})'
+
 
 class TestSpaceRegister:
 
