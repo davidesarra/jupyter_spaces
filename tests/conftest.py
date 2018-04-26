@@ -2,7 +2,7 @@ from IPython.testing.globalipapp import start_ipython
 import pytest
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='session')
 def session_ip():
     return start_ipython()
 

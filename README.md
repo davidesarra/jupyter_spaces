@@ -42,13 +42,19 @@ print(alpha)
 
 When you execute a cell within a space, all references are firstly searched in
 the space namespace and secondly in the user namespace. All assignments are
-made in the space namespace. However, as expected, `global` assigments are made
-in the user namespace.
+made in the space namespace.
+
+Trying to delete a user namespace reference will raise an error. Trying to
+affect a user namespace reference using the keyword `global` will produce an
+execution equivalent to not using such keyword.
+
+Mutable objects in the user namespace can be altered (e.g. appending an item
+to a list).
 
 #### Console output
 
-Conversely to the standard usage of the python console, you need to use print
-to get a output in the console or Jupyter cell output.
+Conversely to the standard usage of the python console, the `print` function is
+required to get a output in the console or in the Jupyter cell output.
 
 - No output to console
     ```python
@@ -69,7 +75,7 @@ to get a output in the console or Jupyter cell output.
 
 ### Access all spaces at once
 
-Without using any magic you can access the spaces' namespaces.
+You can access all the spaces' namespaces at once without using any magic.
 This might be useful to jointly post-process or compare the spaces' contents.
 
 ```python

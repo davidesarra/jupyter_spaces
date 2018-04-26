@@ -53,7 +53,7 @@ class SpaceRegister:
 
 
 class Space:
-    __slots__ = ['_name', '_inner_space', '_outer_space']
+    __slots__ = ['_execution_namespace', '_name']
 
     def __init__(self, name, outer_space):
         """Initialise Space instance.
@@ -63,8 +63,8 @@ class Space:
             outer_space (dict): Outer namespace.
         """
         self._name = name
-        self._inner_space = {}
-        self._outer_space = outer_space
+        self._execution_namespace = ExecutionNamespace(
+            global_references=outer_space, local_references={})
 
     def __repr__(self):
         return "Space(name='{name}', namespace={namespace})".format(
@@ -89,7 +89,7 @@ class Space:
         Returns:
             dict: Namespace.
         """
-        return self._inner_space
+        return self._execution_namespace.local_references
 
     def execute(self, source):
         """Execute source code inside the space namespace and outer namespace.
@@ -97,6 +97,23 @@ class Space:
         Args:
             source (str): Source code.
         """
-        compiled_source = compile(
-            source=source, filename='<string>', mode='exec')
-        exec(compiled_source, self._outer_space, self._inner_space)
+        exec(source, self._execution_namespace)
+
+
+class ExecutionNamespace(dict):
+
+    def __init__(self, global_references, local_references):
+        self.global_references = global_references
+        self.local_references = local_references
+
+    def __getitem__(self, key):
+        try:
+            return self.local_references[key]
+        except KeyError:
+            return self.global_references[key]
+
+    def __setitem__(self, key, value):
+        self.local_references[key] = value
+
+    def __delitem__(self, key):
+        del self.local_references[key]
