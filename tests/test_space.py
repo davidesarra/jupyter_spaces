@@ -41,14 +41,14 @@ class TestSpace:
         space.execute(source='reference = 99')
         assert 'x' not in outer_space
 
-    def test_space_references_prioritised_over_user_namespace_indirectly(self):
+    def test_space_references_prioritized_over_user_namespace_indirectly(self):
         outer_space = dict(x=100)
         space = Space(name='tomato', outer_space=outer_space)
         space.execute(source='x = 99')
         space.execute(source='assert x == 99')
         assert space.namespace['x'] == 99
 
-    def test_space_references_prioritised_over_user_namespace_directly(self):
+    def test_space_references_prioritized_over_user_namespace_directly(self):
         outer_space = dict(x=100)
         space = Space(name='tomato', outer_space=outer_space)
         space.namespace['x'] = 99
@@ -93,7 +93,8 @@ class TestSpace:
     def test_space_representation(self):
         space = Space(name='tomato', outer_space={})
         space.namespace['x'] = 1
-        assert str(space) == 'Space(name=\'tomato\', namespace={\'x\': 1})'
+        space.namespace['y'] = 1
+        assert repr(space) == 'Space(name=tomato, size=2)'
 
 
 class TestSpaceRegister:
@@ -162,7 +163,7 @@ class TestExecutionNamespace:
         assert namespace['x'] == 2
         assert namespace.local_references['x'] == 2
 
-    def test_local_assigments_do_not_affect_global_assigments(self):
+    def test_local_assignments_do_not_affect_global_assignments(self):
         namespace = ExecutionNamespace(
             global_references=dict(x=1), local_references={})
         namespace['x'] = 2
@@ -170,7 +171,7 @@ class TestExecutionNamespace:
         assert namespace.local_references['x'] == 2
         assert namespace.global_references['x'] == 1
 
-    def test_deleting_local_references_do_not_affect_global_assigments(self):
+    def test_deleting_local_references_do_not_affect_global_assignments(self):
         namespace = ExecutionNamespace(
             global_references=dict(x=1), local_references=dict(x=2))
         del namespace['x']
@@ -178,7 +179,7 @@ class TestExecutionNamespace:
         assert 'x' not in namespace.local_references
         assert namespace.global_references['x'] == 1
 
-    def test_deleting_not_existig_local_references_raises(self):
+    def test_deleting_not_existing_local_references_raises(self):
         namespace = ExecutionNamespace(
             global_references=dict(x=1), local_references={})
         with raises(KeyError):

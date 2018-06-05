@@ -67,8 +67,8 @@ class Space:
             global_references=outer_space, local_references={})
 
     def __repr__(self):
-        return "Space(name='{name}', namespace={namespace})".format(
-            name=self.name, namespace=self.namespace)
+        return 'Space(name={name}, size={size:d})'.format(
+            name=self.name, size=len(self.namespace))
 
     @property
     def name(self):
@@ -103,6 +103,12 @@ class Space:
 class ExecutionNamespace(dict):
 
     def __init__(self, global_references, local_references):
+        """Initialise ExecutionNamespace instance.
+
+        Args:
+            global_references (dict): Global namespace.
+            local_references (dict): Local namespace.
+        """
         self.global_references = global_references
         self.local_references = local_references
 
