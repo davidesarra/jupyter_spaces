@@ -53,8 +53,8 @@ to a list).
 
 #### Console output
 
-Conversely to the standard usage of the python console, the `print` function is
-required to get a output in the console or in the Jupyter cell output.
+Conversely to the standard usage of the Python console, you need to print
+objects explicitly (e.g. by using `print`).
 
 - No output to console
     ```python
@@ -66,6 +66,17 @@ required to get a output in the console or in the Jupyter cell output.
     %%space <space-name>
     print(100)
     ```
+
+If you want IPython to use more advanced representations, you can do so via
+IPython's display library (e.g. display a Pandas dataframe as a HTML table).
+
+```python
+%%space <space-name>
+from IPython.display import display
+from pandas import DataFrame
+dataframe = DataFrame(data=[[1, 2]])
+display(dataframe)
+```
 
 ### Remove a space
 
