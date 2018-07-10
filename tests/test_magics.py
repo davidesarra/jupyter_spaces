@@ -7,7 +7,7 @@ def test_space_can_access_user_namespace_references(ip):
     ip.run_cell_magic(magic_name='space', line='tomato', cell='x')
 
 
-def test_space_references_prioritised_over_user_namespace_references(ip):
+def test_space_references_prioritized_over_user_namespace_references(ip):
     ip.run_cell(raw_cell='x = 100')
     ip.run_cell_magic(magic_name='space', line='tomato',
                       cell='x = 99; assert x == 99')
@@ -59,7 +59,7 @@ def test_space_cannot_add_user_namespace_references_using_global(ip):
     assert 'x' not in ip.user_global_ns
 
 
-def test_space_reference_assigments_persist_in_new_magic_call(ip):
+def test_space_reference_assignments_persist_in_new_magic_call(ip):
     ip.run_cell_magic(magic_name='space', line='tomato', cell='x = 99')
     ip.run_cell_magic(magic_name='space', line='tomato', cell='assert x == 99')
 
@@ -71,7 +71,7 @@ def test_space_reference_deletions_persist_in_new_magic_call(ip):
         ip.run_cell_magic(magic_name='space', line='tomato', cell='x')
 
 
-def test_space_references_assigments_are_confined_in_one_space_only(ip):
+def test_space_references_assignments_are_confined_in_one_space_only(ip):
     ip.run_cell_magic(magic_name='space', line='tomato', cell='x = 99')
     ip.run_cell_magic(magic_name='space', line='potato', cell='x = 100')
     ip.run_cell_magic(magic_name='space', line='tomato', cell='assert x == 99')

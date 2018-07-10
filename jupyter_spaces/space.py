@@ -5,7 +5,7 @@ class SpaceRegister:
     __slots__ = ['_register']
 
     def __init__(self):
-        """Initialise SpaceRegister instance."""
+        """Instantiate SpaceRegister."""
         self._register = {}
 
     @property
@@ -44,7 +44,7 @@ class SpaceRegister:
         try:
             del self._register[name]
         except KeyError:
-            raise RegistryError('Failed to forget space {name} because '
+            raise RegistryError('Cannot remove space {name} because '
                                 'it does not exist'.format(name=name))
 
     def remove_all_spaces(self):
@@ -56,7 +56,7 @@ class Space:
     __slots__ = ['_execution_namespace', '_name']
 
     def __init__(self, name, outer_space):
-        """Initialise Space instance.
+        """Instantiate Space.
 
         Args:
             name (str): Name of the space.
@@ -103,7 +103,7 @@ class Space:
 class ExecutionNamespace(dict):
 
     def __init__(self, global_references, local_references):
-        """Initialise ExecutionNamespace instance.
+        """Instantiate ExecutionNamespace.
 
         Args:
             global_references (dict): Global namespace.
