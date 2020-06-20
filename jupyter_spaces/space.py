@@ -2,7 +2,7 @@ from jupyter_spaces.errors import RegistryError
 
 
 class SpaceRegister:
-    __slots__ = ['_register']
+    __slots__ = ["_register"]
 
     def __init__(self):
         """Instantiate SpaceRegister."""
@@ -44,8 +44,10 @@ class SpaceRegister:
         try:
             del self._register[name]
         except KeyError:
-            raise RegistryError('Cannot remove space {name} because '
-                                'it does not exist'.format(name=name))
+            raise RegistryError(
+                "Cannot remove space {name} because "
+                "it does not exist".format(name=name)
+            )
 
     def remove_all_spaces(self):
         """Remove all Spaces from register."""
@@ -53,7 +55,7 @@ class SpaceRegister:
 
 
 class Space:
-    __slots__ = ['_execution_namespace', '_name']
+    __slots__ = ["_execution_namespace", "_name"]
 
     def __init__(self, name, outer_space):
         """Instantiate Space.
@@ -64,11 +66,13 @@ class Space:
         """
         self._name = name
         self._execution_namespace = ExecutionNamespace(
-            global_references=outer_space, local_references={})
+            global_references=outer_space, local_references={}
+        )
 
     def __repr__(self):
-        return 'Space(name={name}, size={size:d})'.format(
-            name=self.name, size=len(self.namespace))
+        return "Space(name={name}, size={size:d})".format(
+            name=self.name, size=len(self.namespace)
+        )
 
     @property
     def name(self):
@@ -101,7 +105,6 @@ class Space:
 
 
 class ExecutionNamespace(dict):
-
     def __init__(self, global_references, local_references):
         """Instantiate ExecutionNamespace.
 

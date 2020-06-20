@@ -8,7 +8,6 @@ space_register = SpaceRegister()
 
 @magics_class
 class SpaceMagic(Magics):
-
     @cell_magic
     def space(self, line, cell):
         """Execute cell contents using the space namespace as locals and the
@@ -25,8 +24,7 @@ class SpaceMagic(Magics):
             ... alpha = 0.50
             ... print(alpha)
         """
-        space = space_register.get_space(
-            name=line, outer_space=self.shell.user_ns)
+        space = space_register.get_space(name=line, outer_space=self.shell.user_ns)
         space.execute(source=cell)
 
     @line_magic
