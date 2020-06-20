@@ -14,7 +14,7 @@ magics in Jupyter notebooks.
 pip install jupyter_spaces
 ```
 
-`jupyter_spaces` supports Python versions `3.5`, `3.6` and `3.7`.
+`jupyter_spaces` supports Python versions `3.5`, `3.6`, `3.7` and `3.8`.
 
 ## Usage
 
