@@ -37,7 +37,7 @@ Reloading the extension will remove all spaces.
 ```python
 %%space <space-name>
 alpha = 0.50
-print(alpha)
+alpha
 ```
 
 When you execute a cell within a space, all references are firstly searched in
@@ -50,33 +50,6 @@ execution equivalent to not using such keyword.
 
 Mutable objects in the user namespace can be altered (e.g. appending an item
 to a list).
-
-#### Console output
-
-Conversely to the standard usage of the Python console, you need to print
-objects explicitly (e.g. by using `print`).
-
-- No output to console
-    ```python
-    %%space <space-name>
-    100
-    ```
-- Output to console
-    ```python
-    %%space <space-name>
-    print(100)
-    ```
-
-If you want IPython to use more advanced representations, you can do so via
-IPython's display library (e.g. display a Pandas dataframe as a HTML table).
-
-```python
-%%space <space-name>
-from IPython.display import display
-from pandas import DataFrame
-dataframe = DataFrame(data=[[1, 2]])
-display(dataframe)
-```
 
 ### Remove a space
 

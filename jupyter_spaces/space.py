@@ -1,3 +1,6 @@
+import ast
+import sys
+
 from jupyter_spaces.errors import RegistryError
 
 
@@ -101,7 +104,16 @@ class Space:
         Args:
             source (str): Source code.
         """
-        exec(source, self._execution_namespace)
+        tree = ast.parse(source=source)
+
+        interactive_tree = ast.Interactive(body=tree.body)
+        if sys.version_info > (3, 8):
+            interactive_tree.type_ignores = tree.type_ignores
+
+        compiled_interactive_tree = compile(
+            source=interactive_tree, filename="<string>", mode="single"
+        )
+        exec(compiled_interactive_tree, self._execution_namespace)
 
 
 class ExecutionNamespace(dict):
