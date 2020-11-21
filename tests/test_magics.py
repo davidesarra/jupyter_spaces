@@ -152,6 +152,11 @@ def test_get_spaces_reflects_extension_reload(ip):
     assert not ip.user_global_ns["spaces"]
 
 
+def test_space_outputs_to_console(ip, capsys):
+    ip.run_cell_magic(magic_name="space", line="tomato", cell="100")
+    assert capsys.readouterr().out == "100\n"
+
+
 def test_space_can_print_to_console(ip):
     with capture_output() as captured:
         ip.run_cell_magic(magic_name="space", line="tomato", cell="print(100)")
