@@ -2,7 +2,7 @@
 from setuptools import find_packages, setup
 
 NAME = "jupyter_spaces"
-VERSION = "0.1.2"
+VERSION = "0.2.0"
 AUTHOR = "Davide Sarra"
 URL = "https://github.com/davidesarra/jupyter_spaces"
 DESCRIPTION = "Create parallel namespaces in Jupyter Notebooks"
