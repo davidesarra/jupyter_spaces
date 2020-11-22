@@ -1,4 +1,3 @@
-from IPython.utils.io import capture_output
 from pytest import raises
 
 
@@ -157,7 +156,6 @@ def test_space_outputs_to_console(ip, capsys):
     assert capsys.readouterr().out == "100\n"
 
 
-def test_space_can_print_to_console(ip):
-    with capture_output() as captured:
-        ip.run_cell_magic(magic_name="space", line="tomato", cell="print(100)")
-    assert captured.stdout == "100\n"
+def test_space_can_print_to_console(ip, capsys):
+    ip.run_cell_magic(magic_name="space", line="tomato", cell="print(100)")
+    assert capsys.readouterr().out == "100\n"
