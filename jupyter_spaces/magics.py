@@ -22,7 +22,7 @@ class SpaceMagic(Magics):
         Examples:
             >>> %%space space_name
             ... alpha = 0.50
-            ... print(alpha)
+            ... alpha
         """
         space = space_register.get_space(name=line, outer_space=self.shell.user_ns)
         space.execute(source=cell)
