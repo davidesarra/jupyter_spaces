@@ -1,7 +1,6 @@
-from IPython.core.magic import cell_magic, line_magic, Magics, magics_class
+from IPython.core.magic import Magics, cell_magic, line_magic, magics_class
 
 from jupyter_spaces.space import SpaceRegister
-
 
 space_register = SpaceRegister()
 
