@@ -1,5 +1,5 @@
-from IPython.testing.globalipapp import start_ipython
 import pytest
+from IPython.testing.globalipapp import start_ipython
 
 
 @pytest.fixture(scope="session")
