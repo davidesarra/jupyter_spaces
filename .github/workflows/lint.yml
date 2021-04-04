@@ -13,10 +13,10 @@ jobs:
     - name: Setup Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.8
+        python-version: 3.9
     - name: Checkout repository
       uses: actions/checkout@v2
-    - name: Install dev dependencies
+    - name: Install lint dependencies
       run: pip install -r requirements/lint.txt
     - name: Check order of Python imports
       run: isort --check-only --diff --quiet .
