@@ -1,7 +1,7 @@
 from pytest import raises
 
 from jupyter_spaces.errors import RegistryError
-from jupyter_spaces.space import ExecutionNamespace, Space, SpaceRegister
+from jupyter_spaces.space import Space, SpaceRegister
 
 
 class TestSpace:
@@ -135,48 +135,3 @@ class TestSpaceRegister:
         space_register.remove_all_spaces()
         expected_register = {}
         assert space_register.register == expected_register
-
-
-class TestExecutionNamespace:
-    def test_access_global_references(self):
-        namespace = ExecutionNamespace(global_references=dict(x=1), local_references={})
-        assert namespace["x"] == 1
-
-    def test_access_local_references(self):
-        namespace = ExecutionNamespace(global_references={}, local_references=dict(x=1))
-        assert namespace["x"] == 1
-
-    def test_priority_access_for_local_references(self):
-        namespace = ExecutionNamespace(
-            global_references=dict(x=1), local_references=dict(x=2)
-        )
-        assert namespace["x"] == 2
-
-    def test_alter_local_references(self):
-        namespace = ExecutionNamespace(global_references={}, local_references=dict(x=1))
-        namespace["x"] = 2
-        assert namespace["x"] == 2
-        assert namespace.local_references["x"] == 2
-
-    def test_local_assignments_do_not_affect_global_assignments(self):
-        namespace = ExecutionNamespace(global_references=dict(x=1), local_references={})
-        namespace["x"] = 2
-        assert namespace["x"] == 2
-        assert namespace.local_references["x"] == 2
-        assert namespace.global_references["x"] == 1
-
-    def test_deleting_local_references_do_not_affect_global_assignments(self):
-        namespace = ExecutionNamespace(
-            global_references=dict(x=1), local_references=dict(x=2)
-        )
-        del namespace["x"]
-        assert namespace["x"] == 1
-        assert "x" not in namespace.local_references
-        assert namespace.global_references["x"] == 1
-
-    def test_deleting_not_existing_local_references_raises(self):
-        namespace = ExecutionNamespace(global_references=dict(x=1), local_references={})
-        with raises(KeyError):
-            del namespace["x"]
-        assert namespace["x"] == 1
-        assert namespace.global_references["x"] == 1

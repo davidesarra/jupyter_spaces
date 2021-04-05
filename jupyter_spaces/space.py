@@ -1,5 +1,6 @@
 import ast
 import sys
+from collections import ChainMap
 
 from jupyter_spaces.errors import RegistryError
 
@@ -68,9 +69,7 @@ class Space:
             outer_space (dict): Outer namespace.
         """
         self._name = name
-        self._execution_namespace = ExecutionNamespace(
-            global_references=outer_space, local_references={}
-        )
+        self._execution_namespace = _ChainNamespace({}, outer_space)
 
     def __repr__(self):
         return "Space(name={name}, size={size:d})".format(
@@ -96,7 +95,7 @@ class Space:
         Returns:
             dict: Namespace.
         """
-        return self._execution_namespace.local_references
+        return self._execution_namespace.maps[0]
 
     def execute(self, source):
         """Execute source code inside the space namespace and outer namespace.
@@ -116,25 +115,5 @@ class Space:
         exec(compiled_interactive_tree, self._execution_namespace)
 
 
-class ExecutionNamespace(dict):
-    def __init__(self, global_references, local_references):
-        """Instantiate ExecutionNamespace.
-
-        Args:
-            global_references (dict): Global namespace.
-            local_references (dict): Local namespace.
-        """
-        self.global_references = global_references
-        self.local_references = local_references
-
-    def __getitem__(self, key):
-        try:
-            return self.local_references[key]
-        except KeyError:
-            return self.global_references[key]
-
-    def __setitem__(self, key, value):
-        self.local_references[key] = value
-
-    def __delitem__(self, key):
-        del self.local_references[key]
+class _ChainNamespace(ChainMap, dict):
+    pass
