@@ -65,6 +65,10 @@ def test_space_reference_deletions_persist_in_new_magic_call(ip):
         ip.run_cell_magic(magic_name="space", line="tomato", cell="x")
 
 
+def test_space_reference_assignments_persist_in_same_magic_call(ip):
+    ip.run_cell_magic(magic_name="space", line="tomato", cell="x = 1; y = x + 1")
+
+
 def test_space_references_assignments_are_confined_in_one_space_only(ip):
     ip.run_cell_magic(magic_name="space", line="tomato", cell="x = 99")
     ip.run_cell_magic(magic_name="space", line="potato", cell="x = 100")
@@ -151,11 +155,26 @@ def test_get_spaces_reflects_extension_reload(ip):
     assert not ip.user_global_ns["spaces"]
 
 
-def test_space_outputs_to_console(ip, capsys):
+def test_last_output_is_sent_to_stdout(ip, capsys):
     ip.run_cell_magic(magic_name="space", line="tomato", cell="100")
     assert capsys.readouterr().out == "100\n"
 
 
-def test_space_can_print_to_console(ip, capsys):
+def test_only_last_output_is_sent_to_stdout(ip, capsys):
+    ip.run_cell_magic(magic_name="space", line="tomato", cell="1\n2")
+    assert capsys.readouterr().out == "2\n"
+
+
+def test_space_can_print_to_stdout(ip, capsys):
     ip.run_cell_magic(magic_name="space", line="tomato", cell="print(100)")
     assert capsys.readouterr().out == "100\n"
+
+
+def test_none_does_not_produce_any_stdout(ip, capsys):
+    ip.run_cell_magic(magic_name="space", line="tomato", cell="None")
+    assert capsys.readouterr().out == ""
+
+
+def test_statement_does_not_produce_any_stdout(ip, capsys):
+    ip.run_cell_magic(magic_name="space", line="tomato", cell="x = 1")
+    assert capsys.readouterr().out == ""
