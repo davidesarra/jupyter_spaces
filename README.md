@@ -1,6 +1,5 @@
 # Jupyter Spaces
 
-[![Build Status](https://travis-ci.com/davidesarra/jupyter_spaces.svg?branch=master)](https://travis-ci.com/davidesarra/jupyter_spaces)
 [![codecov](https://codecov.io/gh/davidesarra/jupyter_spaces/branch/master/graph/badge.svg)](https://codecov.io/gh/davidesarra/jupyter_spaces)
 [![Supported Python Versions](https://img.shields.io/pypi/pyversions/jupyter_spaces.svg)](https://pypi.org/project/jupyter_spaces/)
 
