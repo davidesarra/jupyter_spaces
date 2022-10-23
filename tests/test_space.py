@@ -95,6 +95,31 @@ class TestSpace:
         space.namespace["y"] = 1
         assert repr(space) == "Space(name=tomato, size=2)"
 
+    def test_last_output_is_sent_to_stdout(self, capsys):
+        space = Space(name="tomato", outer_space={})
+        space.execute(source="1")
+        assert capsys.readouterr().out == "1\n"
+
+    def test_only_last_output_is_sent_to_stdout(self, capsys):
+        space = Space(name="tomato", outer_space={})
+        space.execute(source="1\n2")
+        assert capsys.readouterr().out == "2\n"
+
+    def test_none_does_not_produce_any_stdout(self, capsys):
+        space = Space(name="tomato", outer_space={})
+        space.execute(source="None")
+        assert capsys.readouterr().out == ""
+
+    def test_statement_does_not_produce_any_stdout(self, capsys):
+        space = Space(name="tomato", outer_space={})
+        space.execute(source="x = 1")
+        assert capsys.readouterr().out == ""
+
+    def test_use_variable_defined_in_same_source(self):
+        space = Space(name="tomato", outer_space={})
+        space.execute(source="x = 1; y = x + 1")
+        assert space.namespace == {"x": 1, "y": 2}
+
 
 class TestSpaceRegister:
     def test_get_new_space(self):

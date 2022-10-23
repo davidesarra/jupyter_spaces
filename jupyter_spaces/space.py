@@ -104,15 +104,16 @@ class Space:
             source (str): Source code.
         """
         tree = ast.parse(source=source)
+        self._execute(body=tree.body[:-1], mode="exec")
+        self._execute(body=tree.body[-1:], mode="single")
 
-        interactive_tree = ast.Interactive(body=tree.body)
+    def _execute(self, body, mode):
+        tree_types = {"exec": ast.Module, "single": ast.Interactive}
+        tree = tree_types[mode](body=body)
         if sys.version_info > (3, 8):
-            interactive_tree.type_ignores = tree.type_ignores
-
-        compiled_interactive_tree = compile(
-            source=interactive_tree, filename="<string>", mode="single"
-        )
-        exec(compiled_interactive_tree, self._execution_namespace)
+            tree.type_ignores = []
+        code = compile(source=tree, filename="<string>", mode=mode)
+        exec(code, self._execution_namespace)
 
 
 class _ChainNamespace(ChainMap, dict):
