@@ -2,7 +2,7 @@ SHELL := /usr/bin/env bash
 
 install:
 	@ pip install --upgrade build pip setuptools twine && \
-	pip install -e . -r requirements/lint.txt -r requirements/test.txt
+	pip install -e .[lint,test]
 
 build: install
 	@ python -m build
