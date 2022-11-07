@@ -14,7 +14,7 @@ publish-test: build
 	@ python -m twine upload --repository testpypi dist/*
 
 test: lint
-	@ pytest -vvv
+	@ pytest
 
 test-all: lint
 	@ tox
